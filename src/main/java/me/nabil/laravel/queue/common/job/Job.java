@@ -1,4 +1,4 @@
-package me.nabil.pa.queue.common.job;
+package me.nabil.laravel.queue.common.job;
 
 import java.util.concurrent.TimeUnit;
 

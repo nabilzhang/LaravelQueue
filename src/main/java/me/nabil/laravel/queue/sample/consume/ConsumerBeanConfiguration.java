@@ -1,13 +1,12 @@
-package me.nabil.pa.queue.sample.consume;
+package me.nabil.laravel.queue.sample.consume;
 
-import me.nabil.pa.queue.common.Queue;
-import me.nabil.pa.queue.common.RedisQueue;
+import me.nabil.laravel.queue.common.Queue;
+import me.nabil.laravel.queue.common.RedisQueue;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**

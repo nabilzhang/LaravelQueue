@@ -1,14 +1,12 @@
-package me.nabil.pa.queue.sample.consume;
+package me.nabil.laravel.queue.sample.consume;
 
-import me.nabil.pa.queue.common.annotation.ConsumerOptions;
-import me.nabil.pa.queue.common.job.Job;
-import me.nabil.pa.queue.consumer.QueueConsumerHandler;
-import me.nabil.pa.queue.sample.DemoData;
+import me.nabil.laravel.queue.common.annotation.ConsumerOptions;
+import me.nabil.laravel.queue.sample.DemoData;
+import me.nabil.laravel.queue.common.job.Job;
+import me.nabil.laravel.queue.consumer.QueueConsumerHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * demo queue 任务处理器

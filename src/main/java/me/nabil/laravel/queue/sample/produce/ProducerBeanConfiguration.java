@@ -1,11 +1,10 @@
-package me.nabil.pa.queue.sample.produce;
+package me.nabil.laravel.queue.sample.produce;
 
-import me.nabil.pa.queue.common.Queue;
-import me.nabil.pa.queue.common.RedisQueue;
-import me.nabil.pa.queue.producer.QueueProducer;
-import me.nabil.pa.queue.producer.QueueProducerSimpleImpl;
-import me.nabil.pa.queue.sample.DemoData;
-import org.springframework.beans.factory.annotation.Autowired;
+import me.nabil.laravel.queue.common.Queue;
+import me.nabil.laravel.queue.common.RedisQueue;
+import me.nabil.laravel.queue.producer.QueueProducer;
+import me.nabil.laravel.queue.producer.QueueProducerSimpleImpl;
+import me.nabil.laravel.queue.sample.DemoData;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

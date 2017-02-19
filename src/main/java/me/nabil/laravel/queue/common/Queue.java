@@ -1,6 +1,6 @@
-package me.nabil.pa.queue.common;
+package me.nabil.laravel.queue.common;
 
-import me.nabil.pa.queue.common.job.Job;
+import me.nabil.laravel.queue.common.job.Job;
 
 /**
  * Queue

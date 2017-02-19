@@ -1,8 +1,8 @@
-package me.nabil.pa.queue.sample.consume;
+package me.nabil.laravel.queue.sample.consume;
 
-import me.nabil.pa.queue.common.Queue;
-import me.nabil.pa.queue.consumer.ConsumerWorker;
-import me.nabil.pa.queue.consumer.QueueConsumerHandler;
+import me.nabil.laravel.queue.common.Queue;
+import me.nabil.laravel.queue.consumer.ConsumerWorker;
+import me.nabil.laravel.queue.consumer.QueueConsumerHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;

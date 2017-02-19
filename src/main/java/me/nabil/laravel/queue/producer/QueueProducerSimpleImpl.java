@@ -1,6 +1,6 @@
-package me.nabil.pa.queue.producer;
+package me.nabil.laravel.queue.producer;
 
-import me.nabil.pa.queue.common.Queue;
+import me.nabil.laravel.queue.common.Queue;
 
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;

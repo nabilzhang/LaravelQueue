@@ -1,6 +1,6 @@
-package me.nabil.pa.queue.common.job;
+package me.nabil.laravel.queue.common.job;
 
-import me.nabil.pa.queue.common.RedisQueue;
+import me.nabil.laravel.queue.common.RedisQueue;
 
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;

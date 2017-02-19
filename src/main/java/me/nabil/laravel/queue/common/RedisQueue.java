@@ -1,8 +1,8 @@
-package me.nabil.pa.queue.common;
+package me.nabil.laravel.queue.common;
 
-import me.nabil.pa.queue.common.job.Job;
-import me.nabil.pa.queue.common.job.JobMessage;
-import me.nabil.pa.queue.common.job.RedisJob;
+import me.nabil.laravel.queue.common.job.JobMessage;
+import me.nabil.laravel.queue.common.job.RedisJob;
+import me.nabil.laravel.queue.common.job.Job;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -18,7 +18,7 @@ import java.util.*;
  *
  * @author nabilzhang
  */
-public class RedisQueue<T> extends AbstractQueue implements Queue<T> {
+public class RedisQueue<T> extends AbstractQueue implements me.nabil.laravel.queue.common.Queue<T> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RedisQueue.class);
 

@@ -1,7 +1,7 @@
-package me.nabil.pa.queue.sample.produce;
+package me.nabil.laravel.queue.sample.produce;
 
-import me.nabil.pa.queue.producer.QueueProducer;
-import me.nabil.pa.queue.sample.DemoData;
+import me.nabil.laravel.queue.producer.QueueProducer;
+import me.nabil.laravel.queue.sample.DemoData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

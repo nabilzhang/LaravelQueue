@@ -1,4 +1,4 @@
-package me.nabil.pa.queue.common.job;
+package me.nabil.laravel.queue.common.job;
 
 /**
  * 异步任务

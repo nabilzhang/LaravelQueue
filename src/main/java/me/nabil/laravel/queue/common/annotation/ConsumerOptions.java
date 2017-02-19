@@ -1,4 +1,4 @@
-package me.nabil.pa.queue.common.annotation;
+package me.nabil.laravel.queue.common.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

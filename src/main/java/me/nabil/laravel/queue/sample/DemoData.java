@@ -1,4 +1,4 @@
-package me.nabil.pa.queue.sample;
+package me.nabil.laravel.queue.sample;
 
 /**
  * 示例数据<br/>

@@ -1,4 +1,4 @@
-package me.nabil.pa.queue.common;
+package me.nabil.laravel.queue.common;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.core.script.DefaultRedisScript;

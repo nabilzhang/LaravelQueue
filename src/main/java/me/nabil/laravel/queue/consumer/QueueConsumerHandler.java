@@ -1,6 +1,6 @@
-package me.nabil.pa.queue.consumer;
+package me.nabil.laravel.queue.consumer;
 
-import me.nabil.pa.queue.common.job.Job;
+import me.nabil.laravel.queue.common.job.Job;
 
 /**
  * 消费处理
