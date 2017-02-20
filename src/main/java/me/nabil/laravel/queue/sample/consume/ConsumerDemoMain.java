@@ -28,7 +28,7 @@ import java.util.concurrent.CountDownLatch;
  */
 @SpringBootApplication
 @Import(ConsumerBeanConfiguration.class)
-@ComponentScan("me.nabil.pa.queue.sample")
+@ComponentScan("me.nabil.laravel.queue.sample.consume")
 public class ConsumerDemoMain implements ApplicationRunner, ApplicationContextAware {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ConsumerDemoMain.class);

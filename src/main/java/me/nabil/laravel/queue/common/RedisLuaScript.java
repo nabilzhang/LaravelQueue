@@ -8,6 +8,7 @@ import org.springframework.scripting.support.ResourceScriptSource;
 /**
  * Redis Lua脚本
  * 用Lua脚本实现多个队列在同时操作的时候的事务性
+ * 脚本资源单例模式，提升效率，但线程并不安全，即便不安全，最多少有浪费，无副作用
  *
  * @author nabilzhang
  */
@@ -17,6 +18,21 @@ public class RedisLuaScript {
      * Lua脚本所在根路径
      */
     private static final String SCRIPT_ROOT = "/queue_lua_script/";
+
+    /**
+     * merge脚本
+     */
+    private static RedisScript migrateExpiredJobsScript = null;
+
+    /**
+     * pop脚本
+     */
+    private static RedisScript popScript = null;
+
+    /**
+     * release脚本
+     */
+    private static RedisScript releaseScript = null;
 
     /**
      * 合并
@@ -29,12 +45,17 @@ public class RedisLuaScript {
      *
      * @return
      */
-    public static RedisScript<Long> migrateExpiredJobsScript() {
-        DefaultRedisScript defaultRedisScript = new DefaultRedisScript<Long>();
-        defaultRedisScript.setScriptSource(new ResourceScriptSource(
-                new ClassPathResource(SCRIPT_ROOT + "migrateExpiredJobsScript.lua")));
-        defaultRedisScript.setResultType(Long.TYPE);
-        return defaultRedisScript;
+    public static RedisScript<Long> getMigrateExpiredJobsScript() {
+        if (migrateExpiredJobsScript == null) {
+            DefaultRedisScript defaultRedisScript = new DefaultRedisScript<Long>();
+            defaultRedisScript.setScriptSource(new ResourceScriptSource(
+                    new ClassPathResource(SCRIPT_ROOT + "migrateExpiredJobsScript.lua")));
+            defaultRedisScript.setResultType(Long.TYPE);
+
+            migrateExpiredJobsScript = defaultRedisScript;
+        }
+
+        return migrateExpiredJobsScript;
     }
 
     /**
@@ -48,12 +69,18 @@ public class RedisLuaScript {
      *
      * @return 返回attempts已经加了1的job
      */
-    public static RedisScript<String> popScript() {
-        DefaultRedisScript<String> defaultRedisScript = new DefaultRedisScript<String>();
-        defaultRedisScript.setScriptSource(new ResourceScriptSource(
-                new ClassPathResource(SCRIPT_ROOT + "pop.lua")));
-        defaultRedisScript.setResultType(String.class);
-        return defaultRedisScript;
+    public static RedisScript<String> getPopScript() {
+        if (popScript == null) {
+
+            DefaultRedisScript<String> defaultRedisScript = new DefaultRedisScript<String>();
+            defaultRedisScript.setScriptSource(new ResourceScriptSource(
+                    new ClassPathResource(SCRIPT_ROOT + "pop.lua")));
+            defaultRedisScript.setResultType(String.class);
+
+            popScript = defaultRedisScript;
+        }
+
+        return popScript;
     }
 
     /**
@@ -66,11 +93,16 @@ public class RedisLuaScript {
      *
      * @return
      */
-    public static RedisScript<Boolean> releaseScript() {
-        DefaultRedisScript<Boolean> defaultRedisScript = new DefaultRedisScript<Boolean>();
-        defaultRedisScript.setScriptSource(new ResourceScriptSource(
-                new ClassPathResource(SCRIPT_ROOT + "release.lua")));
-        defaultRedisScript.setResultType(Boolean.class);
-        return defaultRedisScript;
+    public static RedisScript<Boolean> getReleaseScript() {
+        if (releaseScript == null) {
+            DefaultRedisScript<Boolean> defaultRedisScript = new DefaultRedisScript<Boolean>();
+            defaultRedisScript.setScriptSource(new ResourceScriptSource(
+                    new ClassPathResource(SCRIPT_ROOT + "release.lua")));
+            defaultRedisScript.setResultType(Boolean.class);
+
+            releaseScript = defaultRedisScript;
+        }
+
+        return releaseScript;
     }
 }

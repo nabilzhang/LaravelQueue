@@ -73,7 +73,7 @@ public class RedisQueue<T> extends AbstractQueue implements me.nabil.laravel.que
         List<String> keys = new ArrayList<String>();
         keys.add(rawQueueName + DELAYED_SUFFIX);
         keys.add(rawQueueName + RESERVED_SUFFIX);
-        return this.redisTemplate.execute(RedisLuaScript.releaseScript(),
+        return this.redisTemplate.execute(RedisLuaScript.getReleaseScript(),
                 new GenericToStringSerializer<Object>(Object.class),
                 new GenericToStringSerializer<Boolean>(Boolean.TYPE),
                 keys, job.getJobReserved(), delay);
@@ -103,7 +103,7 @@ public class RedisQueue<T> extends AbstractQueue implements me.nabil.laravel.que
         calendar.add(Calendar.SECOND, retryAfterSeconds);
 
         try {
-            return this.redisTemplate.execute(RedisLuaScript.popScript(),
+            return this.redisTemplate.execute(RedisLuaScript.getPopScript(),
                     new GenericToStringSerializer(Long.TYPE), new StringRedisSerializer(),
                     keys, calendar.getTimeInMillis() / 1000);
         } catch (Exception e) {
@@ -135,7 +135,7 @@ public class RedisQueue<T> extends AbstractQueue implements me.nabil.laravel.que
         keys.add(getRawQueueName(toQueue));
 
         // 按照当前的时间看是否过期，如果过期就合并到主队列等待运行
-        redisTemplate.execute(RedisLuaScript.migrateExpiredJobsScript(),
+        redisTemplate.execute(RedisLuaScript.getMigrateExpiredJobsScript(),
                 keys, System.currentTimeMillis() / 1000);
 
     }
