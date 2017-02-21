@@ -7,7 +7,7 @@ import me.nabil.laravel.queue.common.job.Job;
  *
  * @author nabilzhang
  */
-public interface Queue<T> {
+public interface Queue {
     /**
      * push消息到队列中
      *
@@ -16,7 +16,7 @@ public interface Queue<T> {
      * @param queueName 消息队列
      * @return
      */
-    Long push(String jobName, T data, String queueName);
+    <T> Long push(String jobName, T data, String queueName);
 
 
     /**
@@ -28,7 +28,7 @@ public interface Queue<T> {
      * @param queueName 消息队列名称
      * @return 是否成功
      */
-    Boolean later(String jobName, long delay, T data, String queueName);
+    <T> Boolean later(String jobName, long delay, T data, String queueName);
 
     /**
      * 从队列总弹出一个元素
@@ -37,7 +37,7 @@ public interface Queue<T> {
      * @param retryAfterSeconds 多久之后重试
      * @return job
      */
-    Job<T> pop(String queueName, int retryAfterSeconds);
+    <T> Job<T> pop(String queueName, int retryAfterSeconds);
 
     /**
      * 删除运行中的数据
@@ -45,7 +45,7 @@ public interface Queue<T> {
      * @param queueName 队列名称
      * @param job       job
      */
-    Long deleteReserved(String queueName, Job<T> job);
+    <T> Long deleteReserved(String queueName, Job<T> job);
 
     /**
      * 删除运行中(reserved)队列中的数据并且release到延迟队列
@@ -54,5 +54,5 @@ public interface Queue<T> {
      * @param job       job
      * @param delay     延迟时间
      */
-    boolean deleteAndRelease(String queueName, Job<T> job, long delay);
+    <T> boolean deleteAndRelease(String queueName, Job<T> job, long delay);
 }

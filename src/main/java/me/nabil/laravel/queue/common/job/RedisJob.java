@@ -10,18 +10,18 @@ import java.util.concurrent.TimeUnit;
  *
  * @author nabilzhang
  */
-public class RedisJob<T> extends AbstractJob<T> {
+public class RedisJob extends AbstractJob {
 
-    private RedisQueue<T> redisQueue;
+    private RedisQueue redisQueue;
 
-    private JobMessage<T> jobMessage;
+    private JobMessage<?> jobMessage;
 
     private String reserved;
 
     private String queueName;
 
     @Override
-    public JobMessage<T> getJobMessage() {
+    public JobMessage<?> getJobMessage() {
         return this.jobMessage;
     }
 
@@ -56,7 +56,7 @@ public class RedisJob<T> extends AbstractJob<T> {
      * @param reserved   运行job信息
      * @param queueName  队列名称
      */
-    public RedisJob(RedisQueue<T> redisQueue, JobMessage<T> jobMessage, String reserved, String queueName) {
+    public RedisJob(RedisQueue redisQueue, JobMessage<?> jobMessage, String reserved, String queueName) {
         this.redisQueue = redisQueue;
         this.jobMessage = jobMessage;
         this.reserved = reserved;

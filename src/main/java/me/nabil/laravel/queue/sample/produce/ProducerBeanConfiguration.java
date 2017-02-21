@@ -44,7 +44,7 @@ public class ProducerBeanConfiguration {
      * @return
      */
     @Bean
-    public QueueProducer<DemoData> demoDataQueueProducer(@Qualifier("redisQueue") Queue<DemoData> queue) {
+    public QueueProducer<DemoData> demoDataQueueProducer(@Qualifier("redisQueue") Queue queue) {
         QueueProducerSimpleImpl<DemoData> demoDataQueueProducer =
                 new QueueProducerSimpleImpl<DemoData>("demoqueue", "jobA");
         demoDataQueueProducer.setQueue(queue);

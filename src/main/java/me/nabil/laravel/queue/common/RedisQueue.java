@@ -11,14 +11,17 @@ import org.springframework.data.redis.serializer.*;
 
 import javax.annotation.Resource;
 import java.nio.charset.Charset;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Queue的Redis实现
  *
  * @author nabilzhang
  */
-public class RedisQueue<T> extends AbstractQueue implements me.nabil.laravel.queue.common.Queue<T> {
+public class RedisQueue extends AbstractQueue implements Queue {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RedisQueue.class);
 
@@ -34,20 +37,20 @@ public class RedisQueue<T> extends AbstractQueue implements me.nabil.laravel.que
     private static final String RESERVED_SUFFIX = ":reserved";
 
     @Resource(name = "redisTemplate")
-    private RedisTemplate<String, JobMessage<T>> redisTemplate;
+    private RedisTemplate<String, JobMessage<?>> redisTemplate;
 
     @Override
-    public Long push(String jobName, T data, String queueName) {
+    public <T> Long push(String jobName, T data, String queueName) {
         return this.pushRaw(getRawQueueName(queueName), createPayload(jobName, data));
     }
 
     @Override
-    public Boolean later(String jobName, long delay, T data, String queueName) {
+    public <T> Boolean later(String jobName, long delay, T data, String queueName) {
         return this.laterRaw(getRawQueueName(queueName) + DELAYED_SUFFIX, delay, createPayload(jobName, data));
     }
 
     @Override
-    public Job<T> pop(String queueName, int retryAfterSeconds) {
+    public <T> Job<T> pop(String queueName, int retryAfterSeconds) {
 
         this.migrate(queueName);
 
@@ -60,14 +63,14 @@ public class RedisQueue<T> extends AbstractQueue implements me.nabil.laravel.que
                     .deserialize(reserved.getBytes(Charset.forName("UTF8")), JobMessage.class);
             // 原jobMessage attempts应该少1
             jobMessage.setAttempts(jobMessage.getAttempts() - 1);
-            return new RedisJob<T>(this, jobMessage, reserved, queueName);
+            return new RedisJob(this, jobMessage, reserved, queueName);
         } else {
             return null;
         }
     }
 
     @Override
-    public boolean deleteAndRelease(String queueName, Job<T> job, long delay) {
+    public <T> boolean deleteAndRelease(String queueName, Job<T> job, long delay) {
         String rawQueueName = this.getRawQueueName(queueName);
 
         List<String> keys = new ArrayList<String>();
@@ -80,7 +83,7 @@ public class RedisQueue<T> extends AbstractQueue implements me.nabil.laravel.que
     }
 
     @Override
-    public Long deleteReserved(String queueName, Job<T> job) {
+    public <T> Long deleteReserved(String queueName, Job<T> job) {
         return this.redisTemplate.execute(
                 new DefaultRedisScript<Long>("return redis.call('zrem', KEYS[1], ARGV[1])", Long.TYPE),
                 new StringRedisSerializer(), new GenericToStringSerializer<Long>(Long.TYPE),
@@ -157,7 +160,7 @@ public class RedisQueue<T> extends AbstractQueue implements me.nabil.laravel.que
      * @param payload   消息体
      * @return
      */
-    private Long pushRaw(String queueName, JobMessage<T> payload) {
+    private <T> Long pushRaw(String queueName, JobMessage<T> payload) {
         return redisTemplate.opsForList().rightPush(queueName, payload);
     }
 
@@ -168,7 +171,7 @@ public class RedisQueue<T> extends AbstractQueue implements me.nabil.laravel.que
      * @param payload   消息体
      * @return
      */
-    private Boolean laterRaw(String queueName, long delay, JobMessage<T> payload) {
+    private <T> Boolean laterRaw(String queueName, long delay, JobMessage<T> payload) {
         return redisTemplate.opsForZSet().add(queueName, payload, delay);
     }
 }

@@ -9,14 +9,14 @@ import java.util.UUID;
  *
  * @author nabilzhang
  */
-public abstract class AbstractQueue<T> {
+public abstract class AbstractQueue {
 
     /**
      * 构建redis实际存储的任务消息体
      *
      * @return
      */
-    protected JobMessage<T> createPayload(String jobName, T data) {
+    protected <T> JobMessage<T> createPayload(String jobName, T data) {
         JobMessage<T> jobMessage = new JobMessage<T>();
         jobMessage.setJob(jobName);
         jobMessage.setData(data);
